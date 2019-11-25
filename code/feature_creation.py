@@ -8,66 +8,6 @@ required_features = [ "behavior.processes.modules.basename",\
                       "signatures.marks.ioc",\
                       "network.domains.domain"]
 
-# def feature_extraction(json_variable, feature_accessor):
-
-#     if feature_accessor:
-
-#         for indiviual_keyIndex, indiviual_key in enumerate( feature_accessor ) :
-            
-#             print( "feature Accessor: ", feature_accessor )
-#             print( "indiviual key: ", indiviual_key )
-            
-#             if type( json_variable ) is dict:
-
-#                 print("is a dictionary")
-
-#                 print("\n"*5)
-#                 print("before change json_variable", json_variable )
-#                 print("\n"*5)
-
-#                 json_variable =  json_variable[indiviual_key]
-
-#                 print("\n"*5)
-#                 print("json_variable", json_variable )
-#                 print("\n"*5)
-#                 print("feature Accessor", feature_accessor[indiviual_keyIndex+1:] )
-#                 print("\n"*5)
-
-#                 # print("This is a dictionary", json_variable)
-
-#                 feature_extraction( json_variable, feature_accessor[indiviual_keyIndex+1:] )
-
-#             elif type( json_variable ) is list:
-
-#                 print("is a list")
-
-#                 for index, value in enumerate( json_variable ):
-                    
-#                     print( "index", index )
-#                     print( "Value", value )
-
-#                     # json_variable = json_variable[index]
-
-#                     print("\n"*5)
-#                     print("json_variable", value )
-#                     print("\n"*5)
-#                     print("feature Accessor", feature_accessor[indiviual_keyIndex:] )
-#                     print("\n"*5)
-
-#                     feature_extraction( value, feature_accessor[indiviual_keyIndex:] )
-
-#                 if indiviual_keyIndex == len(feature_accessor) - 1:
-#                     print("\n"*5)
-#                     print( "end of line" )
-#                     print("\n"*5)
-
-#                 else:
-
-#                     feature_extraction( value, feature_accessor[indiviual_keyIndex+1:] )
-
-#             else:
-                
-#                 print(json_variable)
 
 def feature_extraction_sans_loop(json_variable, feature_accessor):
 
@@ -76,12 +16,14 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
     if feature_accessor:
 
         indiviual_keyIndex = 0
-        indiviual_key = feature_accessor[0] #in enumerate( feature_accessor ) :
+        indiviual_key = feature_accessor[0]
             
         print( "feature Accessor: ", feature_accessor )
         print( "indiviual key: ", indiviual_key )
         
         if type( json_variable ) is dict:
+
+            print("is a dictionary")
 
             if not json_variable:
 
@@ -89,13 +31,12 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
 
                 return
 
-            print("is a dictionary")
-
             print("\n"*5)
             print("before change json_variable", json_variable )
             print("\n"*5)
 
             if indiviual_key in json_variable.keys():
+                
                 print("key Found")
                 json_variable =  json_variable[indiviual_key]
 
@@ -117,11 +58,14 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
                     master_list_value.append(json_variable)
             else:
 
-                # print("This is a dictionary", json_variable)
+                
 
                 feature_extraction_sans_loop( json_variable, feature_accessor[indiviual_keyIndex+1:] )
 
         elif type( json_variable ) is list:
+
+
+            print("is a list")
 
             if not json_variable:
 
@@ -129,12 +73,12 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
 
                 return
 
-            print("is a list")
-
-
             print("list starts")
+            
             for index, value in enumerate( json_variable ):
+                
                 print( "printing list value ",value )
+                
                 if not value:
 
                     print( "Nested List is empty...." )
@@ -185,20 +129,6 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
             print(json_variable)
 
     print( "function ended" )
-
-
-
-
-# def populate_feature(json_report, required_features):
-
-#     for feature in required_features:
-
-#         temp_json_report = json_report
-
-#         for key in feature.split("."):
-            
-#             temp_json_report = temp_json_report[key]
-            
 
 
 
