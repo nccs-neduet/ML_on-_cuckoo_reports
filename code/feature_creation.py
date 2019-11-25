@@ -83,6 +83,12 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
         
         if type( json_variable ) is dict:
 
+            if not json_variable:
+
+                print( "Dict is empty...." )
+
+                return
+
             print("is a dictionary")
 
             print("\n"*5)
@@ -117,12 +123,24 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
 
         elif type( json_variable ) is list:
 
+            if not json_variable:
+
+                print( "List is empty...." )
+
+                return
+
             print("is a list")
 
 
             print("list starts")
             for index, value in enumerate( json_variable ):
-                
+                print( "printing list value ",value )
+                if not value:
+
+                    print( "Nested List is empty...." )
+
+                    continue
+
                 print( "index", index )
                 print( "Value", value )
 
@@ -154,7 +172,12 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
                 print( "feature_accessor", feature_accessor )
                 print("json_variable", json_variable )
                 print("\n"*5)
-                feature_extraction_sans_loop( value, feature_accessor[indiviual_keyIndex+1:] )
+
+                if not json_variable:
+                    print("Empty json variable in else....")
+                    return
+                
+                feature_extraction_sans_loop( json_variable, feature_accessor[indiviual_keyIndex+1:] )
 
         else:
             
@@ -215,31 +238,37 @@ for filename in os.listdir(path):
 
             indiviual_report_json =  json.load( indiviual_report )
 
-            tryout = required_features[0].split(".")
+            for indiviual_required_feature in  required_features:
+            
+                tryout = indiviual_required_feature.split(".")
+                # tryout = required_features[0].split(".")
 
-            print(tryout)
+                print(tryout)
 
-            # feature_extraction( indiviual_report_json, tryout )
-            print( "master_list_value before populating: ", master_list_value  )
-            feature_extraction_sans_loop( indiviual_report_json, tryout )
-            print( "master_list_value after populating: ", master_list_value  )
+                # feature_extraction( indiviual_report_json, tryout )
+                print( "master_list_value before populating: ", master_list_value  )
+                feature_extraction_sans_loop( indiviual_report_json, tryout )
+                print( "master_list_value after populating: ", master_list_value  )
 
-            # feature_frame["file"] = [filename]
-            # feature_frame = feature_frame.append( {"file" :filename } , ignore_index = True )
-            # feature_frame.set_index('file', drop=True, inplace=True)
-            # feature_frame.loc[filename] = None
+                # feature_frame["file"] = [filename]
+                # feature_frame = feature_frame.append( {"file" :filename } , ignore_index = True )
+                # feature_frame.set_index('file', drop=True, inplace=True)
+                # feature_frame.loc[filename] = None
 
-            feature_frame.at[filename, "Placeholder"] = 0
+                feature_frame.at[filename, "Placeholder"] = 0
 
-            for item in master_list_value:
+                for item in master_list_value:
 
-                temp_feature = required_features[0]+ "." + item
+                    print( "Item: ", item )
+                    
+                    temp_feature = indiviual_required_feature + "." + item
+                    # temp_feature = required_features[0]+ "." + item
 
-                unique_features.append( temp_feature )
+                    unique_features.append( temp_feature )
 
-                # feature_frame[ temp_feature ] = 1
-                feature_frame.at[ filename, temp_feature] = 1
-                # feature_frame = feature_frame.append( {temp_feature :1 } , ignore_index = True )
+                    # feature_frame[ temp_feature ] = 1
+                    feature_frame.at[ filename, temp_feature] = 1
+                    # feature_frame = feature_frame.append( {temp_feature :1 } , ignore_index = True )
 
             print("Unique Features: ", unique_features)
 
