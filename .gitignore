@@ -1,0 +1,9 @@
+cuckoo_ML
+resources/Reports/*
+!resources/Reports/report.json
+resources/*
+!resources/Reports
+!resources/requirements.txt
+.vscode/launch.json
+.vscode/settings.json
+

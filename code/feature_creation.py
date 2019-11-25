@@ -1,0 +1,252 @@
+import json
+import pandas as pd
+import csv
+import os
+
+required_features = [ "behavior.processes.modules.basename",\
+                      "signatures.marks.call.api",\
+                      "signatures.marks.ioc",\
+                      "network.domains.domain"]
+
+# def feature_extraction(json_variable, feature_accessor):
+
+#     if feature_accessor:
+
+#         for indiviual_keyIndex, indiviual_key in enumerate( feature_accessor ) :
+            
+#             print( "feature Accessor: ", feature_accessor )
+#             print( "indiviual key: ", indiviual_key )
+            
+#             if type( json_variable ) is dict:
+
+#                 print("is a dictionary")
+
+#                 print("\n"*5)
+#                 print("before change json_variable", json_variable )
+#                 print("\n"*5)
+
+#                 json_variable =  json_variable[indiviual_key]
+
+#                 print("\n"*5)
+#                 print("json_variable", json_variable )
+#                 print("\n"*5)
+#                 print("feature Accessor", feature_accessor[indiviual_keyIndex+1:] )
+#                 print("\n"*5)
+
+#                 # print("This is a dictionary", json_variable)
+
+#                 feature_extraction( json_variable, feature_accessor[indiviual_keyIndex+1:] )
+
+#             elif type( json_variable ) is list:
+
+#                 print("is a list")
+
+#                 for index, value in enumerate( json_variable ):
+                    
+#                     print( "index", index )
+#                     print( "Value", value )
+
+#                     # json_variable = json_variable[index]
+
+#                     print("\n"*5)
+#                     print("json_variable", value )
+#                     print("\n"*5)
+#                     print("feature Accessor", feature_accessor[indiviual_keyIndex:] )
+#                     print("\n"*5)
+
+#                     feature_extraction( value, feature_accessor[indiviual_keyIndex:] )
+
+#                 if indiviual_keyIndex == len(feature_accessor) - 1:
+#                     print("\n"*5)
+#                     print( "end of line" )
+#                     print("\n"*5)
+
+#                 else:
+
+#                     feature_extraction( value, feature_accessor[indiviual_keyIndex+1:] )
+
+#             else:
+                
+#                 print(json_variable)
+
+def feature_extraction_sans_loop(json_variable, feature_accessor):
+
+    print( "function started" )
+
+    if feature_accessor:
+
+        indiviual_keyIndex = 0
+        indiviual_key = feature_accessor[0] #in enumerate( feature_accessor ) :
+            
+        print( "feature Accessor: ", feature_accessor )
+        print( "indiviual key: ", indiviual_key )
+        
+        if type( json_variable ) is dict:
+
+            print("is a dictionary")
+
+            print("\n"*5)
+            print("before change json_variable", json_variable )
+            print("\n"*5)
+
+            if indiviual_key in json_variable.keys():
+                print("key Found")
+                json_variable =  json_variable[indiviual_key]
+
+            else:
+                print( "no key, skipping" )
+                return
+
+
+
+            print("\n"*5)
+            print("json_variable", json_variable )
+            print("\n"*5)
+            print("feature Accessor", feature_accessor[indiviual_keyIndex+1:] )
+            print("\n"*5)
+
+            if not ( ( type( json_variable ) is dict ) or ( type( json_variable ) is list ) ) and bool(json_variable):
+
+                    print("Values")
+                    master_list_value.append(json_variable)
+            else:
+
+                # print("This is a dictionary", json_variable)
+
+                feature_extraction_sans_loop( json_variable, feature_accessor[indiviual_keyIndex+1:] )
+
+        elif type( json_variable ) is list:
+
+            print("is a list")
+
+
+            print("list starts")
+            for index, value in enumerate( json_variable ):
+                
+                print( "index", index )
+                print( "Value", value )
+
+                # json_variable = json_variable[index]
+
+                print("\n"*5)
+                print("json_variable", value )
+                print("\n"*5)
+                print("feature Accessor", feature_accessor[indiviual_keyIndex:] )
+                print("\n"*5)
+
+                feature_extraction_sans_loop( value, feature_accessor[indiviual_keyIndex:] )
+
+            print("list ends")
+            if ( indiviual_keyIndex == ( len(feature_accessor) - 1) ) :
+                print("\n"*5)
+                print( "end of line" )
+                print( "indiviual_keyIndex ", indiviual_keyIndex )
+                print( "feature_accessor len", len(feature_accessor)  )
+                print( "feature_accessor", feature_accessor )
+                print("json_variable", json_variable )
+                print("\n"*5)
+
+            else:
+                print( "else executed " )
+                print("\n"*5)
+                print( "indiviual_keyIndex ", indiviual_keyIndex )
+                print( "feature_accessor len", len(feature_accessor)  )
+                print( "feature_accessor", feature_accessor )
+                print("json_variable", json_variable )
+                print("\n"*5)
+                feature_extraction_sans_loop( value, feature_accessor[indiviual_keyIndex+1:] )
+
+        else:
+            
+            print("Value found")
+            print(json_variable)
+
+    print( "function ended" )
+
+
+
+
+# def populate_feature(json_report, required_features):
+
+#     for feature in required_features:
+
+#         temp_json_report = json_report
+
+#         for key in feature.split("."):
+            
+#             temp_json_report = temp_json_report[key]
+            
+
+
+
+
+feature_frame = pd.DataFrame()
+
+path = "./resources/Reports"
+
+# for (dirpath, dirnames, filenames) in os.walk(path):
+
+# for files in os.listdir(path)
+#     print( "Filename", filenames )
+
+unique_features = []
+unique_features.clear()
+
+master_list_value = []
+master_list_value.clear()
+
+for filename in os.listdir(path):
+
+    print( "[INFO] {} in process....".format( filename ) )
+
+    if filename.endswith('.json'): 
+
+        unique_features = []
+        unique_features.clear()
+
+        master_list_value = []
+        master_list_value.clear()
+
+        with open( os.path.join( path, filename ), "r" ) as indiviual_report:
+
+        
+
+            # with open( "./resources/Reports/report.json", 'r' ) as indiviual_report:
+
+            indiviual_report_json =  json.load( indiviual_report )
+
+            tryout = required_features[0].split(".")
+
+            print(tryout)
+
+            # feature_extraction( indiviual_report_json, tryout )
+            print( "master_list_value before populating: ", master_list_value  )
+            feature_extraction_sans_loop( indiviual_report_json, tryout )
+            print( "master_list_value after populating: ", master_list_value  )
+
+            # feature_frame["file"] = [filename]
+            # feature_frame = feature_frame.append( {"file" :filename } , ignore_index = True )
+            # feature_frame.set_index('file', drop=True, inplace=True)
+            # feature_frame.loc[filename] = None
+
+            feature_frame.at[filename, "Placeholder"] = 0
+
+            for item in master_list_value:
+
+                temp_feature = required_features[0]+ "." + item
+
+                unique_features.append( temp_feature )
+
+                # feature_frame[ temp_feature ] = 1
+                feature_frame.at[ filename, temp_feature] = 1
+                # feature_frame = feature_frame.append( {temp_feature :1 } , ignore_index = True )
+
+            print("Unique Features: ", unique_features)
+
+            print( feature_frame.head() )
+            
+with open("./resources/feature_frame.csv", 'w') as f:
+    # df.to_csv(f, header=False)
+
+    feature_frame.to_csv( f )
+
