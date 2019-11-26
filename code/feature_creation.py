@@ -1,14 +1,17 @@
+# Import relavent libraries
 import json
 import pandas as pd
 import csv
 import os
 
+# features to be located in cuckoo response
 required_features = [ "behavior.processes.modules.basename",\
                       "signatures.marks.call.api",\
                       "signatures.marks.ioc",\
                       "network.domains.domain"]
 
 
+# function to extract instances of a single feature in report
 def feature_extraction_sans_loop(json_variable, feature_accessor):
 
     print( "function started" )
@@ -131,7 +134,7 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
     print( "function ended" )
 
 
-
+# Set dataframe , file path and list containers
 
 feature_frame = pd.DataFrame()
 
@@ -148,6 +151,8 @@ unique_features.clear()
 master_list_value = []
 master_list_value.clear()
 
+# traverse over report folder and apply 
+# feature extraction on indivual reports
 for filename in os.listdir(path):
 
     print( "[INFO] {} in process....".format( filename ) )
@@ -203,7 +208,8 @@ for filename in os.listdir(path):
             print("Unique Features: ", unique_features)
 
             print( feature_frame.head() )
-            
+
+# save extracted features in a CSV file 
 with open("./resources/feature_frame.csv", 'w') as f:
     # df.to_csv(f, header=False)
 
