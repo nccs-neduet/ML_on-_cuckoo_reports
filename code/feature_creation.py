@@ -199,8 +199,11 @@ for filename in os.listdir(path):
                 feature_extraction_sans_loop( indiviual_report_json, tryout )
                 print( "master_list_value after populating: ", master_list_value  )
 
-                # A dummy variable to initiate the row for each report
-                feature_frame.at[filename, "Placeholder"] = 0
+                # A class variable for known result
+                if "malicious" in filename:
+                    feature_frame.at[filename, "class"] = 1
+                else:
+                    feature_frame.at[filename, "class"] = 0
 
                 # loop over all the fetures extracted
                 for item in master_list_value:
