@@ -1,0 +1,2394 @@
+{
+    "info": {
+        "added": 1572974059.941552, 
+        "started": 1572975534.25043, 
+        "duration": 182, 
+        "ended": 1572975716.344867, 
+        "owner": null, 
+        "score": 2.4, 
+        "id": 18, 
+        "category": "file", 
+        "git": {
+            "head": "13cbe0d9e457be3673304533043e992ead1ea9b2", 
+            "fetch_head": "13cbe0d9e457be3673304533043e992ead1ea9b2"
+        }, 
+        "monitor": "apihooksadded", 
+        "package": "exe", 
+        "route": "none", 
+        "custom": null, 
+        "machine": {
+            "status": "stopped", 
+            "name": "windows7_2", 
+            "label": "windows7_2", 
+            "manager": "VirtualBox", 
+            "started_on": "2019-11-05 17:38:55", 
+            "shutdown_on": "2019-11-05 17:41:54"
+        }, 
+        "platform": "windows", 
+        "version": "2.0.7", 
+        "options": "procmemdump=yes,route=none"
+    }, 
+    "signatures": [
+        {
+            "families": [], 
+            "description": "The executable contains unknown PE section names indicative of a packer (could be a false positive)", 
+            "severity": 1, 
+            "ttp": {
+                "T1045": {
+                    "short": "Software Packing", 
+                    "long": "Software packing is a method of compressing or encrypting an executable. Packing an executable changes the file signature in an attempt to avoid signature-based detection. Most decompression techniques decompress the executable code in memory."
+                }
+            }, 
+            "markcount": 1, 
+            "references": [], 
+            "marks": [
+                {
+                    "category": "section", 
+                    "ioc": ".6ai0", 
+                    "type": "ioc", 
+                    "description": null
+                }
+            ], 
+            "name": "pe_features"
+        }, 
+        {
+            "families": [], 
+            "description": "The binary likely contains encrypted or compressed data indicative of a packer", 
+            "severity": 2, 
+            "ttp": {
+                "T1045": {
+                    "short": "Software Packing", 
+                    "long": "Software packing is a method of compressing or encrypting an executable. Packing an executable changes the file signature in an attempt to avoid signature-based detection. Most decompression techniques decompress the executable code in memory."
+                }
+            }, 
+            "markcount": 3, 
+            "references": [
+                "http://www.forensickb.com/2013/03/file-entropy-explained.html", 
+                "http://virii.es/U/Using%20Entropy%20Analysis%20to%20Find%20Encrypted%20and%20Packed%20Malware.pdf"
+            ], 
+            "marks": [
+                {
+                    "entropy": 7.891392235061224, 
+                    "section": {
+                        "size_of_data": "0x00002c00", 
+                        "virtual_address": "0x0000c000", 
+                        "entropy": 7.891392235061224, 
+                        "name": ".rdata", 
+                        "virtual_size": "0x00002b5c"
+                    }, 
+                    "type": "generic", 
+                    "description": "A section with a high entropy has been found"
+                }, 
+                {
+                    "entropy": 7.995201513849836, 
+                    "section": {
+                        "size_of_data": "0x0000e600", 
+                        "virtual_address": "0x0000f000", 
+                        "entropy": 7.995201513849836, 
+                        "name": ".data", 
+                        "virtual_size": "0x0000e8f0"
+                    }, 
+                    "type": "generic", 
+                    "description": "A section with a high entropy has been found"
+                }, 
+                {
+                    "entropy": 0.42024539877300615, 
+                    "type": "generic", 
+                    "description": "Overall entropy of this PE file is high"
+                }
+            ], 
+            "name": "packer_entropy"
+        }, 
+        {
+            "families": [], 
+            "description": "Raised Snort alerts", 
+            "severity": 3, 
+            "ttp": {}, 
+            "markcount": 1, 
+            "references": [], 
+            "marks": [
+                {
+                    "category": "snort", 
+                    "ioc": "ATTACK RESPONSES id check returned root", 
+                    "type": "ioc", 
+                    "description": null
+                }
+            ], 
+            "name": "snort_alert"
+        }, 
+        {
+            "families": [], 
+            "description": "File has been identified by 54 AntiVirus engines on VirusTotal as malicious", 
+            "severity": 6, 
+            "ttp": {}, 
+            "markcount": 54, 
+            "references": [], 
+            "marks": [
+                {
+                    "category": "MicroWorld-eScan", 
+                    "ioc": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "FireEye", 
+                    "ioc": "Generic.mg.4387700607ebc371", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "CAT-QuickHeal", 
+                    "ioc": "Ransom.SodinokibiRI.S7669123", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "ALYac", 
+                    "ioc": "Trojan.Ransom.Sodinokibi", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Malwarebytes", 
+                    "ioc": "Ransom.Sodinokibi", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Zillya", 
+                    "ioc": "Trojan.Filecoder.Win32.10046", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "CrowdStrike", 
+                    "ioc": "win/malicious_confidence_100% (D)", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Alibaba", 
+                    "ioc": "Exploit:Win32/Nekto.60aa3720", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "K7GW", 
+                    "ioc": "Trojan ( 0054d99c1 )", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "K7AntiVirus", 
+                    "ioc": "Trojan ( 0054d99c1 )", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Arcabit", 
+                    "ioc": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Invincea", 
+                    "ioc": "heuristic", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "F-Prot", 
+                    "ioc": "W32/Kryptik.AKW.gen!Eldorado", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Symantec", 
+                    "ioc": "Trojan.Gen.MBT", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "APEX", 
+                    "ioc": "Malicious", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Paloalto", 
+                    "ioc": "generic.ml", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "ClamAV", 
+                    "ioc": "Win.Ransomware.Sodinokibi-7013612-0", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Kaspersky", 
+                    "ioc": "Exploit.Win32.Nekto.xj", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "BitDefender", 
+                    "ioc": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "NANO-Antivirus", 
+                    "ioc": "Virus.Win32.Gen.ccmw", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "AegisLab", 
+                    "ioc": "Hacktool.Win32.Nekto.3!c", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Avast", 
+                    "ioc": "Win32:RansomX-gen [Ransom]", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Ad-Aware", 
+                    "ioc": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Emsisoft", 
+                    "ioc": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D (B)", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Comodo", 
+                    "ioc": "TrojWare.Win32.Ransom.Sodinokibi.B@8f3997", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "F-Secure", 
+                    "ioc": "Trojan.TR/Crypt.XPACK.Gen", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "DrWeb", 
+                    "ioc": "Trojan.DelShadows.14", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "VIPRE", 
+                    "ioc": "Trojan.Win32.Generic!BT", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "TrendMicro", 
+                    "ioc": "Ransom.Win32.SODINOKIBI.SMTH", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "McAfee-GW-Edition", 
+                    "ioc": "BehavesLike.Win32.Sality.cc", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Sophos", 
+                    "ioc": "Mal/Generic-S", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "SentinelOne", 
+                    "ioc": "DFI - Suspicious PE", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Cyren", 
+                    "ioc": "W32/Ransom.HLFM-6356", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Avira", 
+                    "ioc": "TR/Crypt.XPACK.Gen", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Antiy-AVL", 
+                    "ioc": "Trojan[Exploit]/Win32.CVE-2018-8453", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Microsoft", 
+                    "ioc": "Exploit:Win32/CVE-2018-8453.A", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Endgame", 
+                    "ioc": "malicious (high confidence)", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "ZoneAlarm", 
+                    "ioc": "Exploit.Win32.Nekto.xj", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "GData", 
+                    "ioc": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "AhnLab-V3", 
+                    "ioc": "Trojan/Win32.RL_Ransom.R290570", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Acronis", 
+                    "ioc": "suspicious", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "McAfee", 
+                    "ioc": "Ransom-REvil!4387700607EB", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "MAX", 
+                    "ioc": "malware (ai score=89)", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "VBA32", 
+                    "ioc": "BScope.Exploit.Nekto", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Cylance", 
+                    "ioc": "Unsafe", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "ESET-NOD32", 
+                    "ioc": "a variant of Win32/Filecoder.Sodinokibi.B", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "TrendMicro-HouseCall", 
+                    "ioc": "Ransom.Win32.SODINOKIBI.SMTH", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Rising", 
+                    "ioc": "Ransom.Sodinokibi!8.10C26 (TFE:5:yCY4pb475pS)", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Yandex", 
+                    "ioc": "Exploit.Nekto!", 
+                    "type": "ioc", 
+                    "description": null
+                }, 
+                {
+                    "category": "Ikarus", 
+                    "ioc": "Trojan-Ransom.Sodinokibi", 
+                    "type": "ioc", 
+                    "description": null
+                }
+            ], 
+            "name": "antivirus_virustotal"
+        }
+    ], 
+    "target": {
+        "category": "file", 
+        "file": {
+            "yara": [], 
+            "sha1": "fb8143058e4303602a6f64aded95812218d8f4cf", 
+            "name": "4387700607ebc371736db021193c32fa.exe", 
+            "type": "PE32 executable (DLL) (GUI) Intel 80386, for MS Windows", 
+            "sha256": "fbaeb1a0ded98e0246ec2c9bd9743687df480b4a3a5d2ecfdb13e09a0c873690", 
+            "urls": [], 
+            "crc32": "318E433B", 
+            "path": "/home/asim/.cuckoo/storage/binaries/fbaeb1a0ded98e0246ec2c9bd9743687df480b4a3a5d2ecfdb13e09a0c873690", 
+            "ssdeep": "3072:gdh/MHQzMozq4ndm8jX5IXzs+M9VQHDOhu3D7td:gdh/EGMgpdmwIXo+M9VQHDoKD5", 
+            "size": 167936, 
+            "sha512": "8a6697a3a0d4c7e81b9b0e4161e9b5ad32d4e555578235ef19d025c7bd9c5c136079acee8ac7a903bb41ff9810d2e94a4551b1d400c033ff0ce29af9b292b122", 
+            "md5": "4387700607ebc371736db021193c32fa"
+        }
+    }, 
+    "suricata": {
+        "tls": [], 
+        "files": [], 
+        "alerts": [], 
+        "http": []
+    }, 
+    "virustotal": {
+        "scans": {
+            "Bkav": {
+                "detected": false, 
+                "version": "1.3.0.10239", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "MicroWorld-eScan": {
+                "detected": true, 
+                "version": "14.0.297.0", 
+                "result": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                "normalized": [
+                    "DeepScan", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "FireEye": {
+                "detected": true, 
+                "version": "29.7.0.0", 
+                "result": "Generic.mg.4387700607ebc371", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "CAT-QuickHeal": {
+                "detected": true, 
+                "version": "14.00", 
+                "result": "Ransom.SodinokibiRI.S7669123", 
+                "normalized": [
+                    "SodinokibiRI", 
+                    "S7669123"
+                ], 
+                "update": "20191022"
+            }, 
+            "ALYac": {
+                "detected": true, 
+                "version": "1.1.1.5", 
+                "result": "Trojan.Ransom.Sodinokibi", 
+                "normalized": [
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "Malwarebytes": {
+                "detected": true, 
+                "version": "2.1.1.1115", 
+                "result": "Ransom.Sodinokibi", 
+                "normalized": [
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "Zillya": {
+                "detected": true, 
+                "version": "2.0.0.3931", 
+                "result": "Trojan.Filecoder.Win32.10046", 
+                "normalized": [
+                    "Filecoder"
+                ], 
+                "update": "20191023"
+            }, 
+            "SUPERAntiSpyware": {
+                "detected": false, 
+                "version": "5.6.0.1032", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191019"
+            }, 
+            "CrowdStrike": {
+                "detected": true, 
+                "version": "1.0", 
+                "result": "win/malicious_confidence_100% (D)", 
+                "normalized": [
+                    "malicious", 
+                    "confidence", 
+                    "100%"
+                ], 
+                "update": "20190702"
+            }, 
+            "Alibaba": {
+                "detected": true, 
+                "version": "0.3.0.5", 
+                "result": "Exploit:Win32/Nekto.60aa3720", 
+                "normalized": [
+                    "Nekto"
+                ], 
+                "update": "20190527"
+            }, 
+            "K7GW": {
+                "detected": true, 
+                "version": "11.74.32341", 
+                "result": "Trojan ( 0054d99c1 )", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "K7AntiVirus": {
+                "detected": true, 
+                "version": "11.74.32342", 
+                "result": "Trojan ( 0054d99c1 )", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "Arcabit": {
+                "detected": true, 
+                "version": "1.0.0.861", 
+                "result": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                "normalized": [
+                    "DeepScan", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "Invincea": {
+                "detected": true, 
+                "version": "6.3.6.26157", 
+                "result": "heuristic", 
+                "normalized": [], 
+                "update": "20190904"
+            }, 
+            "Baidu": {
+                "detected": false, 
+                "version": "1.0.0.2", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20190318"
+            }, 
+            "F-Prot": {
+                "detected": true, 
+                "version": "4.7.1.166", 
+                "result": "W32/Kryptik.AKW.gen!Eldorado", 
+                "normalized": [
+                    "Kryptik", 
+                    "Eldorado"
+                ], 
+                "update": "20191023"
+            }, 
+            "Symantec": {
+                "detected": true, 
+                "version": "1.11.0.0", 
+                "result": "Trojan.Gen.MBT", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "TotalDefense": {
+                "detected": false, 
+                "version": "37.1.62.1", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "APEX": {
+                "detected": true, 
+                "version": "5.76", 
+                "result": "Malicious", 
+                "normalized": [
+                    "Malicious"
+                ], 
+                "update": "20191022"
+            }, 
+            "Paloalto": {
+                "detected": true, 
+                "version": "1.0", 
+                "result": "generic.ml", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "ClamAV": {
+                "detected": true, 
+                "version": "0.102.0.0", 
+                "result": "Win.Ransomware.Sodinokibi-7013612-0", 
+                "normalized": [
+                    "Ransomware", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "Kaspersky": {
+                "detected": true, 
+                "version": "15.0.1.13", 
+                "result": "Exploit.Win32.Nekto.xj", 
+                "normalized": [
+                    "Nekto"
+                ], 
+                "update": "20191023"
+            }, 
+            "BitDefender": {
+                "detected": true, 
+                "version": "7.2", 
+                "result": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                "normalized": [
+                    "DeepScan", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "NANO-Antivirus": {
+                "detected": true, 
+                "version": "1.0.134.24859", 
+                "result": "Virus.Win32.Gen.ccmw", 
+                "normalized": [
+                    "ccmw"
+                ], 
+                "update": "20191023"
+            }, 
+            "AegisLab": {
+                "detected": true, 
+                "version": "4.2", 
+                "result": "Hacktool.Win32.Nekto.3!c", 
+                "normalized": [
+                    "Hacktool", 
+                    "Nekto"
+                ], 
+                "update": "20191023"
+            }, 
+            "Avast": {
+                "detected": true, 
+                "version": "18.4.3895.0", 
+                "result": "Win32:RansomX-gen [Ransom]", 
+                "normalized": [
+                    "RansomX"
+                ], 
+                "update": "20191023"
+            }, 
+            "Tencent": {
+                "detected": false, 
+                "version": "1.0.0.1", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "Ad-Aware": {
+                "detected": true, 
+                "version": "3.0.5.370", 
+                "result": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                "normalized": [
+                    "DeepScan", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "Emsisoft": {
+                "detected": true, 
+                "version": "2018.12.0.1641", 
+                "result": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D (B)", 
+                "normalized": [
+                    "DeepScan", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "Comodo": {
+                "detected": true, 
+                "version": "31637", 
+                "result": "TrojWare.Win32.Ransom.Sodinokibi.B@8f3997", 
+                "normalized": [
+                    "Sodinokibi", 
+                    "B@8f3997"
+                ], 
+                "update": "20191023"
+            }, 
+            "F-Secure": {
+                "detected": true, 
+                "version": "12.0.86.52", 
+                "result": "Trojan.TR/Crypt.XPACK.Gen", 
+                "normalized": [
+                    "XPACK"
+                ], 
+                "update": "20191023"
+            }, 
+            "DrWeb": {
+                "detected": true, 
+                "version": "7.0.41.7240", 
+                "result": "Trojan.DelShadows.14", 
+                "normalized": [
+                    "DelShadows"
+                ], 
+                "update": "20191023"
+            }, 
+            "VIPRE": {
+                "detected": true, 
+                "version": "78796", 
+                "result": "Trojan.Win32.Generic!BT", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "TrendMicro": {
+                "detected": true, 
+                "version": "11.0.0.1006", 
+                "result": "Ransom.Win32.SODINOKIBI.SMTH", 
+                "normalized": [
+                    "SODINOKIBI", 
+                    "SMTH"
+                ], 
+                "update": "20191023"
+            }, 
+            "McAfee-GW-Edition": {
+                "detected": true, 
+                "version": "v2017.3010", 
+                "result": "BehavesLike.Win32.Sality.cc", 
+                "normalized": [
+                    "Sality"
+                ], 
+                "update": "20191023"
+            }, 
+            "Trapmine": {
+                "detected": false, 
+                "version": "3.1.81.800", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20190826"
+            }, 
+            "CMC": {
+                "detected": false, 
+                "version": "1.1.0.977", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20190321"
+            }, 
+            "Sophos": {
+                "detected": true, 
+                "version": "4.98.0", 
+                "result": "Mal/Generic-S", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "SentinelOne": {
+                "detected": true, 
+                "version": "1.0.31.22", 
+                "result": "DFI - Suspicious PE", 
+                "normalized": [
+                    "Suspicious PE"
+                ], 
+                "update": "20190807"
+            }, 
+            "Cyren": {
+                "detected": true, 
+                "version": "6.2.2.2", 
+                "result": "W32/Ransom.HLFM-6356", 
+                "normalized": [
+                    "HLFM"
+                ], 
+                "update": "20191023"
+            }, 
+            "Jiangmin": {
+                "detected": false, 
+                "version": "16.0.100", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "Webroot": {
+                "detected": false, 
+                "version": "1.0.0.403", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "Avira": {
+                "detected": true, 
+                "version": "8.3.3.8", 
+                "result": "TR/Crypt.XPACK.Gen", 
+                "normalized": [
+                    "XPACK"
+                ], 
+                "update": "20191023"
+            }, 
+            "Antiy-AVL": {
+                "detected": true, 
+                "version": "3.0.0.1", 
+                "result": "Trojan[Exploit]/Win32.CVE-2018-8453", 
+                "normalized": [
+                    "CVE-2018-8453"
+                ], 
+                "update": "20191023"
+            }, 
+            "Kingsoft": {
+                "detected": false, 
+                "version": "2013.8.14.323", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "Microsoft": {
+                "detected": true, 
+                "version": "1.1.16500.1", 
+                "result": "Exploit:Win32/CVE-2018-8453.A", 
+                "normalized": [
+                    "CVE-2018-8453"
+                ], 
+                "update": "20191023"
+            }, 
+            "Endgame": {
+                "detected": true, 
+                "version": "3.0.15", 
+                "result": "malicious (high confidence)", 
+                "normalized": [
+                    "malicious", 
+                    "high confidence"
+                ], 
+                "update": "20190918"
+            }, 
+            "ViRobot": {
+                "detected": false, 
+                "version": "2014.3.20.0", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "ZoneAlarm": {
+                "detected": true, 
+                "version": "1.0", 
+                "result": "Exploit.Win32.Nekto.xj", 
+                "normalized": [
+                    "Nekto"
+                ], 
+                "update": "20191023"
+            }, 
+            "Avast-Mobile": {
+                "detected": false, 
+                "version": "191012-04", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191012"
+            }, 
+            "GData": {
+                "detected": true, 
+                "version": "A:25.23746B:26.16393", 
+                "result": "DeepScan:Generic.Ransom.Sodinokibi.91A8D78D", 
+                "normalized": [
+                    "DeepScan", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "TACHYON": {
+                "detected": false, 
+                "version": "2019-10-23.02", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "AhnLab-V3": {
+                "detected": true, 
+                "version": "3.16.3.25410", 
+                "result": "Trojan/Win32.RL_Ransom.R290570", 
+                "normalized": [
+                    "R290570"
+                ], 
+                "update": "20191023"
+            }, 
+            "Acronis": {
+                "detected": true, 
+                "version": "1.1.1.58", 
+                "result": "suspicious", 
+                "normalized": [], 
+                "update": "20191018"
+            }, 
+            "McAfee": {
+                "detected": true, 
+                "version": "6.0.6.653", 
+                "result": "Ransom-REvil!4387700607EB", 
+                "normalized": [
+                    "REvil"
+                ], 
+                "update": "20191023"
+            }, 
+            "MAX": {
+                "detected": true, 
+                "version": "2019.9.16.1", 
+                "result": "malware (ai score=89)", 
+                "normalized": [
+                    "ai score=89"
+                ], 
+                "update": "20191023"
+            }, 
+            "VBA32": {
+                "detected": true, 
+                "version": "4.2.0", 
+                "result": "BScope.Exploit.Nekto", 
+                "normalized": [
+                    "BScope", 
+                    "Nekto"
+                ], 
+                "update": "20191023"
+            }, 
+            "Cylance": {
+                "detected": true, 
+                "version": "2.3.1.101", 
+                "result": "Unsafe", 
+                "normalized": [
+                    "Unsafe"
+                ], 
+                "update": "20191023"
+            }, 
+            "Zoner": {
+                "detected": false, 
+                "version": "1.0.0.1", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191021"
+            }, 
+            "ESET-NOD32": {
+                "detected": true, 
+                "version": "20228", 
+                "result": "a variant of Win32/Filecoder.Sodinokibi.B", 
+                "normalized": [
+                    "Filecoder", 
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "TrendMicro-HouseCall": {
+                "detected": true, 
+                "version": "10.0.0.1040", 
+                "result": "Ransom.Win32.SODINOKIBI.SMTH", 
+                "normalized": [
+                    "SODINOKIBI", 
+                    "SMTH"
+                ], 
+                "update": "20191023"
+            }, 
+            "Rising": {
+                "detected": true, 
+                "version": "25.0.0.24", 
+                "result": "Ransom.Sodinokibi!8.10C26 (TFE:5:yCY4pb475pS)", 
+                "normalized": [
+                    "Sodinokibi", 
+                    "yCY4pb475pS"
+                ], 
+                "update": "20191023"
+            }, 
+            "Yandex": {
+                "detected": true, 
+                "version": "5.5.2.24", 
+                "result": "Exploit.Nekto!", 
+                "normalized": [
+                    "Nekto"
+                ], 
+                "update": "20191023"
+            }, 
+            "Ikarus": {
+                "detected": true, 
+                "version": "0.1.5.2", 
+                "result": "Trojan-Ransom.Sodinokibi", 
+                "normalized": [
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "eGambit": {
+                "detected": false, 
+                "version": "v5.0.6", 
+                "result": null, 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "Fortinet": {
+                "detected": true, 
+                "version": "5.4.247.0", 
+                "result": "W32/Sodinokibi.B!tr", 
+                "normalized": [
+                    "Sodinokibi"
+                ], 
+                "update": "20191023"
+            }, 
+            "AVG": {
+                "detected": true, 
+                "version": "18.4.3895.0", 
+                "result": "Win32:RansomX-gen [Ransom]", 
+                "normalized": [
+                    "RansomX"
+                ], 
+                "update": "20191023"
+            }, 
+            "Panda": {
+                "detected": true, 
+                "version": "4.6.4.2", 
+                "result": "Trj/CI.A", 
+                "normalized": [], 
+                "update": "20191023"
+            }, 
+            "Qihoo-360": {
+                "detected": true, 
+                "version": "1.0.0.1120", 
+                "result": "Win32/Trojan.Exploit.64e", 
+                "normalized": [], 
+                "update": "20191023"
+            }
+        }, 
+        "scan_id": "fbaeb1a0ded98e0246ec2c9bd9743687df480b4a3a5d2ecfdb13e09a0c873690-1571850734", 
+        "sha1": "fb8143058e4303602a6f64aded95812218d8f4cf", 
+        "resource": "4387700607ebc371736db021193c32fa", 
+        "response_code": 1, 
+        "scan_date": "2019-10-23 17:12:14", 
+        "permalink": "https://www.virustotal.com/file/fbaeb1a0ded98e0246ec2c9bd9743687df480b4a3a5d2ecfdb13e09a0c873690/analysis/1571850734/", 
+        "summary": {
+            "positives": 54, 
+            "permalink": "https://www.virustotal.com/file/fbaeb1a0ded98e0246ec2c9bd9743687df480b4a3a5d2ecfdb13e09a0c873690/analysis/1571850734/", 
+            "scan_date": "2019-10-23 17:12:14"
+        }, 
+        "sha256": "fbaeb1a0ded98e0246ec2c9bd9743687df480b4a3a5d2ecfdb13e09a0c873690", 
+        "normalized": [
+            "DeepScan", 
+            "Sodinokibi", 
+            "SodinokibiRI", 
+            "S7669123", 
+            "Filecoder", 
+            "malicious", 
+            "confidence", 
+            "100%", 
+            "Nekto", 
+            "Kryptik", 
+            "Eldorado", 
+            "Ransomware", 
+            "ccmw", 
+            "Hacktool", 
+            "RansomX", 
+            "B@8f3997", 
+            "XPACK", 
+            "DelShadows", 
+            "SMTH", 
+            "Sality", 
+            "Suspicious PE", 
+            "HLFM", 
+            "CVE-2018-8453", 
+            "high confidence", 
+            "R290570", 
+            "REvil", 
+            "ai score=89", 
+            "BScope", 
+            "Unsafe", 
+            "yCY4pb475pS"
+        ], 
+        "total": 69, 
+        "positives": 54, 
+        "verbose_msg": "Scan finished, information embedded", 
+        "md5": "4387700607ebc371736db021193c32fa"
+    }, 
+    "network": {
+        "tls": [], 
+        "udp": [
+            {
+                "src": "192.168.56.11", 
+                "dst": "192.168.56.13", 
+                "offset": 894, 
+                "time": 1.0890731811523438, 
+                "dport": 57127, 
+                "sport": 5355
+            }, 
+            {
+                "src": "192.168.56.13", 
+                "dst": "224.0.0.252", 
+                "offset": 1480, 
+                "time": 1.0887460708618164, 
+                "dport": 5355, 
+                "sport": 57127
+            }, 
+            {
+                "src": "192.168.56.13", 
+                "dst": "224.0.0.252", 
+                "offset": 1662, 
+                "time": 0.002031087875366211, 
+                "dport": 5355, 
+                "sport": 58618
+            }, 
+            {
+                "src": "192.168.56.13", 
+                "dst": "224.0.0.252", 
+                "offset": 1990, 
+                "time": 1.6169099807739258, 
+                "dport": 5355, 
+                "sport": 60998
+            }, 
+            {
+                "src": "192.168.56.13", 
+                "dst": "8.8.8.8", 
+                "offset": 2318, 
+                "time": 2.170250177383423, 
+                "dport": 53, 
+                "sport": 50171
+            }, 
+            {
+                "src": "192.168.56.13", 
+                "dst": "8.8.8.8", 
+                "offset": 2575, 
+                "time": 2.6201910972595215, 
+                "dport": 53, 
+                "sport": 52724
+            }, 
+            {
+                "src": "192.168.56.13", 
+                "dst": "8.8.8.8", 
+                "offset": 2787, 
+                "time": 2.6070010662078857, 
+                "dport": 53, 
+                "sport": 56467
+            }
+        ], 
+        "dns_servers": [
+            "8.8.8.8"
+        ], 
+        "http": [], 
+        "icmp": [], 
+        "smtp": [], 
+        "tcp": [], 
+        "smtp_ex": [], 
+        "mitm": [], 
+        "hosts": [
+            "8.8.8.8"
+        ], 
+        "pcap_sha256": "d1ea72dad6be7560a6b4000d1c9d0538b43a85c4edd55d3eb580a11644d87d49", 
+        "dns": [
+            {
+                "type": "A", 
+                "request": "dns.msftncsi.com", 
+                "answers": [
+                    {
+                        "data": "131.107.255.255", 
+                        "type": "A"
+                    }
+                ]
+            }, 
+            {
+                "type": "AAAA", 
+                "request": "dns.msftncsi.com", 
+                "answers": [
+                    {
+                        "data": "fd3e:4f5a:5b81::1", 
+                        "type": "AAAA"
+                    }
+                ]
+            }, 
+            {
+                "type": "A", 
+                "request": "teredo.ipv6.microsoft.com", 
+                "answers": []
+            }
+        ], 
+        "http_ex": [], 
+        "domains": [
+            {
+                "ip": "", 
+                "domain": "teredo.ipv6.microsoft.com"
+            }, 
+            {
+                "ip": "131.107.255.255", 
+                "domain": "dns.msftncsi.com"
+            }
+        ], 
+        "dead_hosts": [], 
+        "sorted_pcap_sha256": "3d049c705f29b9c48eae89f4cf0e463088654a6c5efa3f1d08e76eed5fc35f17", 
+        "irc": [], 
+        "https_ex": []
+    }, 
+    "static": {
+        "pdb_path": null, 
+        "pe_imports": [
+            {
+                "imports": [
+                    {
+                        "name": "CloseHandle", 
+                        "address": "0x1000c000"
+                    }, 
+                    {
+                        "name": "SetErrorMode", 
+                        "address": "0x1000c004"
+                    }, 
+                    {
+                        "name": "CreateThread", 
+                        "address": "0x1000c008"
+                    }
+                ], 
+                "dll": "KERNEL32.dll"
+            }
+        ], 
+        "peid_signatures": null, 
+        "keys": [], 
+        "signature": [], 
+        "pe_timestamp": "2019-09-10 21:04:29", 
+        "pe_exports": [], 
+        "imported_dll_count": 1, 
+        "pe_imphash": "c4c29c7e6a6897be412c7fedfcca8fe4", 
+        "pe_resources": [], 
+        "pe_versioninfo": [], 
+        "pe_sections": [
+            {
+                "size_of_data": "0x0000ac00", 
+                "virtual_address": "0x00001000", 
+                "entropy": 6.551491970175677, 
+                "name": ".text", 
+                "virtual_size": "0x0000aae4"
+            }, 
+            {
+                "size_of_data": "0x00002c00", 
+                "virtual_address": "0x0000c000", 
+                "entropy": 7.891392235061224, 
+                "name": ".rdata", 
+                "virtual_size": "0x00002b5c"
+            }, 
+            {
+                "size_of_data": "0x0000e600", 
+                "virtual_address": "0x0000f000", 
+                "entropy": 7.995201513849836, 
+                "name": ".data", 
+                "virtual_size": "0x0000e8f0"
+            }, 
+            {
+                "size_of_data": "0x0000c800", 
+                "virtual_address": "0x0001e000", 
+                "entropy": 5.066102246874728, 
+                "name": ".6ai0", 
+                "virtual_size": "0x0000c800"
+            }, 
+            {
+                "size_of_data": "0x00000600", 
+                "virtual_address": "0x0002b000", 
+                "entropy": 6.607605055046714, 
+                "name": ".reloc", 
+                "virtual_size": "0x000005e4"
+            }
+        ]
+    }, 
+    "snort": {
+        "alerts": [
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975632.039325, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 58618, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975632.039327, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 58618, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975632.143817, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 58618, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975632.143822, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 58618, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "IGMP", 
+                "timestamp": 1572975633.117097, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": null, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": null, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.22", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "IGMP", 
+                "timestamp": 1572975633.1171, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": null, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": null, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.22", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975633.12604, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 57127, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975633.126042, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 57127, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975633.126367, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.11", 
+                "src_port": 5355, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 57127, 
+                "sid": 498, 
+                "dst_ip": "192.168.56.13", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "IGMP", 
+                "timestamp": 1572975633.133184, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": null, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": null, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.22", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "IGMP", 
+                "timestamp": 1572975633.133186, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": null, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": null, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.22", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "IGMP", 
+                "timestamp": 1572975633.597019, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": null, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": null, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.22", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "IGMP", 
+                "timestamp": 1572975633.597022, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": null, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": null, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.22", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975633.654204, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 60998, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975633.654207, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 60998, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975633.752734, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 60998, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975633.752737, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 60998, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 5355, 
+                "sid": 498, 
+                "dst_ip": "224.0.0.252", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975634.207544, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 50171, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 53, 
+                "sid": 498, 
+                "dst_ip": "8.8.8.8", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975634.220439, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "8.8.8.8", 
+                "src_port": 53, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 50171, 
+                "sid": 498, 
+                "dst_ip": "192.168.56.13", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975634.644295, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 56467, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 53, 
+                "sid": 498, 
+                "dst_ip": "8.8.8.8", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975634.65724, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "8.8.8.8", 
+                "src_port": 53, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 56467, 
+                "sid": 498, 
+                "dst_ip": "192.168.56.13", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975634.657485, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "192.168.56.13", 
+                "src_port": 52724, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 53, 
+                "sid": 498, 
+                "dst_ip": "8.8.8.8", 
+                "revision": 3
+            }, 
+            {
+                "protocol": "UDP", 
+                "timestamp": 1572975634.673566, 
+                "message": "ATTACK RESPONSES id check returned root", 
+                "src_ip": "8.8.8.8", 
+                "src_port": 53, 
+                "classtype": "Potentially Bad Traffic", 
+                "priority": 2, 
+                "dst_port": 52724, 
+                "sid": 498, 
+                "dst_ip": "192.168.56.13", 
+                "revision": 3
+            }
+        ]
+    }, 
+    "behavior": {
+        "generic": [
+            {
+                "process_path": "C:\\Windows\\System32\\lsass.exe", 
+                "process_name": "lsass.exe", 
+                "pid": 476, 
+                "summary": {}, 
+                "first_seen": 1572974059.5625, 
+                "ppid": 380
+            }
+        ], 
+        "processes": [
+            {
+                "process_path": "C:\\Windows\\System32\\lsass.exe", 
+                "calls": [], 
+                "track": false, 
+                "pid": 476, 
+                "process_name": "lsass.exe", 
+                "command_line": "C:\\Windows\\system32\\lsass.exe", 
+                "modules": [
+                    {
+                        "basename": "lsass.exe", 
+                        "imgsize": 49152, 
+                        "baseaddr": "0xff610000", 
+                        "filepath": "C:\\Windows\\system32\\lsass.exe"
+                    }, 
+                    {
+                        "basename": "ntdll.dll", 
+                        "imgsize": 1740800, 
+                        "baseaddr": "0x77210000", 
+                        "filepath": "C:\\Windows\\SYSTEM32\\ntdll.dll"
+                    }, 
+                    {
+                        "basename": "kernel32.dll", 
+                        "imgsize": 1175552, 
+                        "baseaddr": "0x76ff0000", 
+                        "filepath": "C:\\Windows\\system32\\kernel32.dll"
+                    }, 
+                    {
+                        "basename": "KERNELBASE.dll", 
+                        "imgsize": 438272, 
+                        "baseaddr": "0x7fefd330000", 
+                        "filepath": "C:\\Windows\\system32\\KERNELBASE.dll"
+                    }, 
+                    {
+                        "basename": "msvcrt.dll", 
+                        "imgsize": 651264, 
+                        "baseaddr": "0x7fefda80000", 
+                        "filepath": "C:\\Windows\\system32\\msvcrt.dll"
+                    }, 
+                    {
+                        "basename": "RPCRT4.dll", 
+                        "imgsize": 1232896, 
+                        "baseaddr": "0x7fefebd0000", 
+                        "filepath": "C:\\Windows\\system32\\RPCRT4.dll"
+                    }, 
+                    {
+                        "basename": "SspiSrv.dll", 
+                        "imgsize": 45056, 
+                        "baseaddr": "0x7fefcfb0000", 
+                        "filepath": "C:\\Windows\\system32\\SspiSrv.dll"
+                    }, 
+                    {
+                        "basename": "lsasrv.dll", 
+                        "imgsize": 1470464, 
+                        "baseaddr": "0x7fefce20000", 
+                        "filepath": "C:\\Windows\\system32\\lsasrv.dll"
+                    }, 
+                    {
+                        "basename": "sechost.dll", 
+                        "imgsize": 126976, 
+                        "baseaddr": "0x7feff3e0000", 
+                        "filepath": "C:\\Windows\\SYSTEM32\\sechost.dll"
+                    }, 
+                    {
+                        "basename": "SspiCli.dll", 
+                        "imgsize": 151552, 
+                        "baseaddr": "0x7fefcfc0000", 
+                        "filepath": "C:\\Windows\\system32\\SspiCli.dll"
+                    }, 
+                    {
+                        "basename": "ADVAPI32.dll", 
+                        "imgsize": 897024, 
+                        "baseaddr": "0x7fefd530000", 
+                        "filepath": "C:\\Windows\\system32\\ADVAPI32.dll"
+                    }, 
+                    {
+                        "basename": "USER32.dll", 
+                        "imgsize": 1024000, 
+                        "baseaddr": "0x77110000", 
+                        "filepath": "C:\\Windows\\system32\\USER32.dll"
+                    }, 
+                    {
+                        "basename": "GDI32.dll", 
+                        "imgsize": 421888, 
+                        "baseaddr": "0x7fefd9b0000", 
+                        "filepath": "C:\\Windows\\system32\\GDI32.dll"
+                    }, 
+                    {
+                        "basename": "LPK.dll", 
+                        "imgsize": 57344, 
+                        "baseaddr": "0x7fefe9b0000", 
+                        "filepath": "C:\\Windows\\system32\\LPK.dll"
+                    }, 
+                    {
+                        "basename": "USP10.dll", 
+                        "imgsize": 823296, 
+                        "baseaddr": "0x7feff310000", 
+                        "filepath": "C:\\Windows\\system32\\USP10.dll"
+                    }, 
+                    {
+                        "basename": "SAMSRV.dll", 
+                        "imgsize": 774144, 
+                        "baseaddr": "0x7fefcd40000", 
+                        "filepath": "C:\\Windows\\system32\\SAMSRV.dll"
+                    }, 
+                    {
+                        "basename": "cryptdll.dll", 
+                        "imgsize": 81920, 
+                        "baseaddr": "0x7fefcd10000", 
+                        "filepath": "C:\\Windows\\system32\\cryptdll.dll"
+                    }, 
+                    {
+                        "basename": "MSASN1.dll", 
+                        "imgsize": 61440, 
+                        "baseaddr": "0x7fefd200000", 
+                        "filepath": "C:\\Windows\\system32\\MSASN1.dll"
+                    }, 
+                    {
+                        "basename": "wevtapi.dll", 
+                        "imgsize": 446464, 
+                        "baseaddr": "0x7fefcc30000", 
+                        "filepath": "C:\\Windows\\system32\\wevtapi.dll"
+                    }, 
+                    {
+                        "basename": "IMM32.DLL", 
+                        "imgsize": 188416, 
+                        "baseaddr": "0x7fefd870000", 
+                        "filepath": "C:\\Windows\\system32\\IMM32.DLL"
+                    }, 
+                    {
+                        "basename": "MSCTF.dll", 
+                        "imgsize": 1085440, 
+                        "baseaddr": "0x7fefd8a0000", 
+                        "filepath": "C:\\Windows\\system32\\MSCTF.dll"
+                    }, 
+                    {
+                        "basename": "cngaudit.dll", 
+                        "imgsize": 36864, 
+                        "baseaddr": "0x7fefcbf0000", 
+                        "filepath": "C:\\Windows\\system32\\cngaudit.dll"
+                    }, 
+                    {
+                        "basename": "AUTHZ.dll", 
+                        "imgsize": 192512, 
+                        "baseaddr": "0x7fefcbc0000", 
+                        "filepath": "C:\\Windows\\system32\\AUTHZ.dll"
+                    }, 
+                    {
+                        "basename": "ncrypt.dll", 
+                        "imgsize": 319488, 
+                        "baseaddr": "0x7fefcb70000", 
+                        "filepath": "C:\\Windows\\system32\\ncrypt.dll"
+                    }, 
+                    {
+                        "basename": "bcrypt.dll", 
+                        "imgsize": 139264, 
+                        "baseaddr": "0x7fefcb30000", 
+                        "filepath": "C:\\Windows\\system32\\bcrypt.dll"
+                    }, 
+                    {
+                        "basename": "msprivs.DLL", 
+                        "imgsize": 8192, 
+                        "baseaddr": "0x74f30000", 
+                        "filepath": "C:\\Windows\\system32\\msprivs.DLL"
+                    }, 
+                    {
+                        "basename": "netjoin.dll", 
+                        "imgsize": 204800, 
+                        "baseaddr": "0x7fefcaf0000", 
+                        "filepath": "C:\\Windows\\system32\\netjoin.dll"
+                    }, 
+                    {
+                        "basename": "negoexts.DLL", 
+                        "imgsize": 147456, 
+                        "baseaddr": "0x7fefcac0000", 
+                        "filepath": "C:\\Windows\\system32\\negoexts.DLL"
+                    }, 
+                    {
+                        "basename": "Secur32.dll", 
+                        "imgsize": 45056, 
+                        "baseaddr": "0x7fefcd30000", 
+                        "filepath": "C:\\Windows\\system32\\Secur32.dll"
+                    }, 
+                    {
+                        "basename": "cryptbase.dll", 
+                        "imgsize": 61440, 
+                        "baseaddr": "0x7fefd050000", 
+                        "filepath": "C:\\Windows\\system32\\cryptbase.dll"
+                    }, 
+                    {
+                        "basename": "kerberos.DLL", 
+                        "imgsize": 737280, 
+                        "baseaddr": "0x7fefc9e0000", 
+                        "filepath": "C:\\Windows\\system32\\kerberos.DLL"
+                    }, 
+                    {
+                        "basename": "CRYPTSP.dll", 
+                        "imgsize": 94208, 
+                        "baseaddr": "0x7fefcaa0000", 
+                        "filepath": "C:\\Windows\\system32\\CRYPTSP.dll"
+                    }, 
+                    {
+                        "basename": "WS2_32.dll", 
+                        "imgsize": 315392, 
+                        "baseaddr": "0x7fefe8b0000", 
+                        "filepath": "C:\\Windows\\system32\\WS2_32.dll"
+                    }, 
+                    {
+                        "basename": "NSI.dll", 
+                        "imgsize": 32768, 
+                        "baseaddr": "0x7fefe900000", 
+                        "filepath": "C:\\Windows\\system32\\NSI.dll"
+                    }, 
+                    {
+                        "basename": "mswsock.dll", 
+                        "imgsize": 348160, 
+                        "baseaddr": "0x7fefc960000", 
+                        "filepath": "C:\\Windows\\system32\\mswsock.dll"
+                    }, 
+                    {
+                        "basename": "wship6.dll", 
+                        "imgsize": 28672, 
+                        "baseaddr": "0x7fefcb60000", 
+                        "filepath": "C:\\Windows\\System32\\wship6.dll"
+                    }, 
+                    {
+                        "basename": "msv1_0.DLL", 
+                        "imgsize": 331776, 
+                        "baseaddr": "0x7fefc900000", 
+                        "filepath": "C:\\Windows\\system32\\msv1_0.DLL"
+                    }, 
+                    {
+                        "basename": "netlogon.DLL", 
+                        "imgsize": 712704, 
+                        "baseaddr": "0x7fefc850000", 
+                        "filepath": "C:\\Windows\\system32\\netlogon.DLL"
+                    }, 
+                    {
+                        "basename": "DNSAPI.dll", 
+                        "imgsize": 372736, 
+                        "baseaddr": "0x7fefc7a0000", 
+                        "filepath": "C:\\Windows\\system32\\DNSAPI.dll"
+                    }, 
+                    {
+                        "basename": "logoncli.dll", 
+                        "imgsize": 196608, 
+                        "baseaddr": "0x7fefc820000", 
+                        "filepath": "C:\\Windows\\system32\\logoncli.dll"
+                    }, 
+                    {
+                        "basename": "schannel.DLL", 
+                        "imgsize": 356352, 
+                        "baseaddr": "0x7fefc710000", 
+                        "filepath": "C:\\Windows\\system32\\schannel.DLL"
+                    }, 
+                    {
+                        "basename": "CRYPT32.dll", 
+                        "imgsize": 1470464, 
+                        "baseaddr": "0x7fefd3c0000", 
+                        "filepath": "C:\\Windows\\system32\\CRYPT32.dll"
+                    }, 
+                    {
+                        "basename": "wdigest.DLL", 
+                        "imgsize": 221184, 
+                        "baseaddr": "0x7fefc6d0000", 
+                        "filepath": "C:\\Windows\\system32\\wdigest.DLL"
+                    }, 
+                    {
+                        "basename": "rsaenh.dll", 
+                        "imgsize": 290816, 
+                        "baseaddr": "0x7fefc680000", 
+                        "filepath": "C:\\Windows\\system32\\rsaenh.dll"
+                    }, 
+                    {
+                        "basename": "tspkg.DLL", 
+                        "imgsize": 98304, 
+                        "baseaddr": "0x7fefc9c0000", 
+                        "filepath": "C:\\Windows\\system32\\tspkg.DLL"
+                    }, 
+                    {
+                        "basename": "pku2u.DLL", 
+                        "imgsize": 282624, 
+                        "baseaddr": "0x7fefc630000", 
+                        "filepath": "C:\\Windows\\system32\\pku2u.DLL"
+                    }, 
+                    {
+                        "basename": "bcryptprimitives.dll", 
+                        "imgsize": 311296, 
+                        "baseaddr": "0x7fefc5e0000", 
+                        "filepath": "C:\\Windows\\system32\\bcryptprimitives.dll"
+                    }, 
+                    {
+                        "basename": "RpcRtRemote.dll", 
+                        "imgsize": 81920, 
+                        "baseaddr": "0x7fefd100000", 
+                        "filepath": "C:\\Windows\\system32\\RpcRtRemote.dll"
+                    }, 
+                    {
+                        "basename": "efslsaext.dll", 
+                        "imgsize": 73728, 
+                        "baseaddr": "0x7fefc780000", 
+                        "filepath": "C:\\Windows\\system32\\efslsaext.dll"
+                    }, 
+                    {
+                        "basename": "scecli.DLL", 
+                        "imgsize": 253952, 
+                        "baseaddr": "0x7fefc5a0000", 
+                        "filepath": "C:\\Windows\\system32\\scecli.DLL"
+                    }, 
+                    {
+                        "basename": "credssp.dll", 
+                        "imgsize": 40960, 
+                        "baseaddr": "0x7fefc800000", 
+                        "filepath": "C:\\Windows\\system32\\credssp.dll"
+                    }, 
+                    {
+                        "basename": "WINSTA.dll", 
+                        "imgsize": 249856, 
+                        "baseaddr": "0x7fefd130000", 
+                        "filepath": "C:\\Windows\\system32\\WINSTA.dll"
+                    }, 
+                    {
+                        "basename": "wshtcpip.dll", 
+                        "imgsize": 28672, 
+                        "baseaddr": "0x7fefc310000", 
+                        "filepath": "C:\\Windows\\System32\\wshtcpip.dll"
+                    }, 
+                    {
+                        "basename": "IPHLPAPI.DLL", 
+                        "imgsize": 159744, 
+                        "baseaddr": "0x7fefc410000", 
+                        "filepath": "C:\\Windows\\system32\\IPHLPAPI.DLL"
+                    }, 
+                    {
+                        "basename": "WINNSI.DLL", 
+                        "imgsize": 45056, 
+                        "baseaddr": "0x7fefc400000", 
+                        "filepath": "C:\\Windows\\system32\\WINNSI.DLL"
+                    }, 
+                    {
+                        "basename": "netutils.dll", 
+                        "imgsize": 49152, 
+                        "baseaddr": "0x7fefac30000", 
+                        "filepath": "C:\\Windows\\system32\\netutils.dll"
+                    }, 
+                    {
+                        "basename": "USERENV.dll", 
+                        "imgsize": 122880, 
+                        "baseaddr": "0x7fefc490000", 
+                        "filepath": "C:\\Windows\\system32\\USERENV.dll"
+                    }, 
+                    {
+                        "basename": "profapi.dll", 
+                        "imgsize": 61440, 
+                        "baseaddr": "0x7fefd120000", 
+                        "filepath": "C:\\Windows\\system32\\profapi.dll"
+                    }, 
+                    {
+                        "basename": "dssenh.dll", 
+                        "imgsize": 204800, 
+                        "baseaddr": "0x7fefa7f0000", 
+                        "filepath": "C:\\Windows\\system32\\dssenh.dll"
+                    }, 
+                    {
+                        "basename": "GPAPI.dll", 
+                        "imgsize": 110592, 
+                        "baseaddr": "0x7fefc470000", 
+                        "filepath": "C:\\Windows\\system32\\GPAPI.dll"
+                    }, 
+                    {
+                        "basename": "monitor-x64.dll", 
+                        "imgsize": 2277376, 
+                        "baseaddr": "0x73f00000", 
+                        "filepath": "C:\\tmpvln4aa\\bin\\monitor-x64.dll"
+                    }
+                ], 
+                "time": 0, 
+                "tid": 456, 
+                "first_seen": 1572974059.5625, 
+                "ppid": 380, 
+                "type": "process"
+            }
+        ], 
+        "processtree": [
+            {
+                "track": false, 
+                "pid": 476, 
+                "process_name": "lsass.exe", 
+                "command_line": "C:\\Windows\\system32\\lsass.exe", 
+                "first_seen": 1572974059.5625, 
+                "ppid": 380, 
+                "children": []
+            }
+        ]
+    }, 
+    "debug": {
+        "action": [], 
+        "dbgview": [], 
+        "errors": [], 
+        "log": [
+            "2019-11-05 17:14:19,000 [analyzer] DEBUG: Starting analyzer from: C:\\tmpvln4aa\n", 
+            "2019-11-05 17:14:19,000 [analyzer] DEBUG: Pipe server name: \\??\\PIPE\\amZkLEZfMvCpjbxINLIKKmKFOjEXwHB\n", 
+            "2019-11-05 17:14:19,000 [analyzer] DEBUG: Log pipe server name: \\??\\PIPE\\gVNeTFBQnbaaFAZNRdFwuwHRFT\n", 
+            "2019-11-05 17:14:19,108 [analyzer] DEBUG: Started auxiliary module DbgView\n", 
+            "2019-11-05 17:14:19,437 [analyzer] DEBUG: Started auxiliary module Disguise\n", 
+            "2019-11-05 17:14:19,625 [analyzer] DEBUG: Loaded monitor into process with pid 476\n", 
+            "2019-11-05 17:14:19,625 [analyzer] DEBUG: Started auxiliary module DumpTLSMasterSecrets\n", 
+            "2019-11-05 17:14:19,625 [analyzer] DEBUG: Started auxiliary module Human\n", 
+            "2019-11-05 17:14:19,625 [analyzer] DEBUG: Started auxiliary module InstallCertificate\n", 
+            "2019-11-05 17:14:19,625 [analyzer] DEBUG: Started auxiliary module Reboot\n", 
+            "2019-11-05 17:14:19,687 [analyzer] DEBUG: Started auxiliary module RecentFiles\n", 
+            "2019-11-05 17:14:19,703 [analyzer] DEBUG: Started auxiliary module Screenshots\n", 
+            "2019-11-05 17:14:19,703 [analyzer] DEBUG: Started auxiliary module LoadZer0m0n\n", 
+            "2019-11-05 17:14:19,733 [lib.api.process] ERROR: Failed to execute process from path u'C:\\\\Users\\\\GUESTW~1\\\\AppData\\\\Local\\\\Temp\\\\4387700607ebc371736db021193c32fa.exe' with arguments ['bin\\\\inject-x86.exe', '--app', u'C:\\\\Users\\\\GUESTW~1\\\\AppData\\\\Local\\\\Temp\\\\4387700607ebc371736db021193c32fa.exe', '--only-start', '--curdir', 'C:\\\\Users\\\\GUESTW~1\\\\AppData\\\\Local\\\\Temp'] (Error: Command '['bin\\\\inject-x86.exe', '--app', u'C:\\\\Users\\\\GUESTW~1\\\\AppData\\\\Local\\\\Temp\\\\4387700607ebc371736db021193c32fa.exe', '--only-start', '--curdir', 'C:\\\\Users\\\\GUESTW~1\\\\AppData\\\\Local\\\\Temp']' returned non-zero exit status 1)\n"
+        ], 
+        "cuckoo": [
+            "2019-11-05 17:38:55,418 [cuckoo.core.scheduler] INFO: Task #18: acquired machine windows7_2 (label=windows7_2)\n", 
+            "2019-11-05 17:38:55,418 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.56.13 for task #18\n", 
+            "2019-11-05 17:38:55,419 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay\n", 
+            "2019-11-05 17:38:55,426 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 7965 (interface=vboxnet0, host=192.168.56.13)\n", 
+            "2019-11-05 17:38:55,427 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer\n", 
+            "2019-11-05 17:38:55,613 [cuckoo.machinery.virtualbox] DEBUG: Starting vm windows7_2\n", 
+            "2019-11-05 17:38:55,909 [cuckoo.machinery.virtualbox] DEBUG: Restoring virtual machine windows7_2 to snapshot1\n", 
+            "2019-11-05 17:40:30,201 [cuckoo.core.guest] INFO: Starting analysis #18 on guest (id=windows7_2, ip=192.168.56.13)\n", 
+            "2019-11-05 17:40:31,205 [cuckoo.core.guest] DEBUG: windows7_2: not ready yet\n", 
+            "2019-11-05 17:40:32,401 [cuckoo.core.guest] DEBUG: windows7_2: not ready yet\n", 
+            "2019-11-05 17:40:32,917 [cuckoo.core.guest] INFO: Guest is running Cuckoo Agent 0.10 (id=windows7_2, ip=192.168.56.13)\n", 
+            "2019-11-05 17:40:32,966 [cuckoo.core.guest] DEBUG: Uploading analyzer to guest (id=windows7_2, ip=192.168.56.13, monitor=latest, size=3871436)\n", 
+            "2019-11-05 17:40:33,617 [cuckoo.core.resultserver] DEBUG: Task #18: live log analysis.log initialized.\n", 
+            "2019-11-05 17:40:34,174 [cuckoo.core.resultserver] DEBUG: Task #18 is sending a BSON stream\n", 
+            "2019-11-05 17:40:34,618 [cuckoo.core.guest] WARNING: windows7_2: analysis #18 caught an exception\n", 
+            "Traceback (most recent call last):\n", 
+            "  File \"C:/tmpvln4aa/analyzer.py\", line 808, in <module>\n", 
+            "    success = analyzer.run()\n", 
+            "  File \"C:/tmpvln4aa/analyzer.py\", line 657, in run\n", 
+            "    pids = self.package.start(self.target)\n", 
+            "  File \"C:\\tmpvln4aa\\modules\\packages\\exe.py\", line 23, in start\n", 
+            "    return self.execute(path, args=shlex.split(args))\n", 
+            "  File \"C:\\tmpvln4aa\\lib\\common\\abstracts.py\", line 166, in execute\n", 
+            "    \"Unable to execute the initial process, analysis aborted.\"\n", 
+            "CuckooPackageError: Unable to execute the initial process, analysis aborted.\n", 
+            "\n", 
+            "2019-11-05 17:40:34,986 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay\n", 
+            "2019-11-05 17:40:35,041 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Sniffer\n", 
+            "2019-11-05 17:41:46,330 [cuckoo.machinery.virtualbox] INFO: Successfully generated memory dump for virtual machine with label windows7_2 to path /home/asim/.cuckoo/storage/analyses/18/memory.dmp\n", 
+            "2019-11-05 17:41:46,332 [cuckoo.machinery.virtualbox] DEBUG: Stopping vm windows7_2\n", 
+            "2019-11-05 17:41:46,985 [cuckoo.core.resultserver] DEBUG: Task #18: File upload for 'shots/0001.jpg'\n", 
+            "2019-11-05 17:41:46,999 [cuckoo.core.resultserver] DEBUG: Task #18 uploaded file length: 108700\n", 
+            "2019-11-05 17:41:55,291 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.56.13 for task #18\n", 
+            "2019-11-05 17:41:55,292 [cuckoo.core.resultserver] DEBUG: Cancel <Context for LOG> for task 18\n", 
+            "2019-11-05 17:41:56,298 [cuckoo.core.scheduler] DEBUG: Released database task #18\n", 
+            "2019-11-05 17:41:58,477 [cuckoo.core.plugins] DEBUG: Executed processing module \"AnalysisInfo\" for task #18\n", 
+            "2019-11-05 17:41:58,616 [cuckoo.core.plugins] DEBUG: Executed processing module \"BehaviorAnalysis\" for task #18\n", 
+            "2019-11-05 17:41:58,618 [cuckoo.core.plugins] DEBUG: Executed processing module \"Dropped\" for task #18\n", 
+            "2019-11-05 17:41:58,618 [cuckoo.core.plugins] DEBUG: Executed processing module \"DroppedBuffer\" for task #18\n", 
+            "2019-11-05 17:41:58,891 [cuckoo.core.plugins] DEBUG: Executed processing module \"MetaInfo\" for task #18\n", 
+            "2019-11-05 17:41:58,893 [cuckoo.core.plugins] DEBUG: Executed processing module \"ProcessMemory\" for task #18\n", 
+            "2019-11-05 17:41:58,893 [cuckoo.core.plugins] DEBUG: Executed processing module \"Procmon\" for task #18\n", 
+            "2019-11-05 17:41:58,915 [cuckoo.core.plugins] DEBUG: Executed processing module \"Screenshots\" for task #18\n", 
+            "2019-11-05 17:41:59,972 [cuckoo.core.plugins] DEBUG: Executed processing module \"Snort\" for task #18\n", 
+            "2019-11-05 17:42:00,520 [cuckoo.core.plugins] DEBUG: Executed processing module \"Static\" for task #18\n", 
+            "2019-11-05 17:42:00,5"
+        ]
+    }, 
+    "screenshots": [
+        {
+            "path": "/home/asim/.cuckoo/storage/analyses/18/shots/0001.jpg", 
+            "ocr": ""
+        }
+    ], 
+    "strings": [
+        "!This program cannot be run in DOS mode.", 
+        "TRichw", 
+        "`.rdata", 
+        "@.data", 
+        ".reloc", 
+        "u=j Ph@", 
+        "tJj.Xf", 
+        "Y@Y_^[", 
+        "YWWWh-3", 
+        "VVVVVWQ", 
+        "t<jzja", 
+        "QQQQQQQP", 
+        "jZf@Yf", 
+        "SVu:W3", 
+        "u19\u001ft-", 
+        "YY_^[]", 
+        "OH_^[]", 
+        "3^83^`3", 
+        "3F(3FP3Fx3", 
+        "3N,3NT3N|3", 
+        "3V<3Vd3", 
+        "~ 3~H3~p3", 
+        "3^@3^h3", 
+        "3F03FX3", 
+        "3N43N\\3", 
+        "3VD3Vl3", 
+        "^$3^L3^t3", 
+        "]E[7#@^`Z2\"*+W&@&", 
+        "?B5W4?R", 
+        "\"ZLP!/J", 
+        "5*8&9!CBMQ-1", 
+        "DK*/N'", 
+        "5.J2'R", 
+        ":]a%6#.", 
+        ".37098W0@$;BQ<*", 
+        "E#=<^JAGP_Da", 
+        "#8OQ**1\u001f0<", 
+        "#^\"-'8!%E?%", 
+        "2+R<2]1=-W", 
+        "expand 32-byte kexpand 16-byte k", 
+        "=j&&LZ66lA??~", 
+        "}{))R>", 
+        "f\"\"D~**T", 
+        "V22dN::t", 
+        "o%%Jr..\\$", 
+        "&&Lj66lZ??~A", 
+        "99rKJJ", 
+        "==zGdd", 
+        "\"\"Df**T~", 
+        ";22dV::tN", 
+        "$$Hl\\\\", 
+        "C77nYmm", 
+        "%%Jo..\\r", 
+        "\u001f\u001f>!KK", 
+        "55j_WW", 
+        "&Lj&6lZ6?~A?", 
+        "~=zG=d", 
+        "\"Df\"*T~*", 
+        "2dV2:tN:", 
+        "x%Jo%.\\r.", 
+        "t\u001f>!\u001fK", 
+        "a5j_5W", 
+        "ggV}++", 
+        "Lj&&lZ66~A??", 
+        "bS11*?", 
+        "Xt,,4.", 
+        "RRvM;;", 
+        "MMfU33", 
+        "PPxD<<%", 
+        "Bc!! 0", 
+        "~~zG==", 
+        "Df\"\"T~**;", 
+        "dV22tN::", 
+        "xxJo%%\\r..8$", 
+        "tt>!\u001f\u001f", 
+        "pp|B>>q", 
+        "aaj_55", 
+        "UUPx((", 
+        "cccc||||wwww{{{{", 
+        "kkkkoooo", 
+        "gggg++++", 
+        "YYYYGGGG", 
+        "&&&&6666????", 
+        "nnnnZZZZ", 
+        "RRRR;;;;", 
+        "[[[[jjjj", 
+        "9999JJJJLLLLXXXX", 
+        "CCCCMMMM3333", 
+        "PPPP<<<<", 
+        "~~~~====dddd]]]]", 
+        "ssss````", 
+        "\"\"\"\"****", 
+        "2222::::", 
+        "$$$$\\\\\\\\", 
+        "7777mmmm", 
+        "llllVVVV", 
+        "eeeezzzz", 
+        "xxxx%%%%....", 
+        "tttt\u001f\u001f\u001f\u001fKKKK", 
+        "pppp>>>>", 
+        "ffffHHHH", 
+        "aaaa5555WWWW", 
+        "UUUU((((", 
+        "BBBBhhhhAAAA", 
+        "='9-6d", 
+        "_jbF~T", 
+        "11#?*0", 
+        ",4$8_@", 
+        "t\\lHBW", 
+        "QPeA~S", 
+        ">4$8,@", 
+        "p\\lHtW", 
+        "+HpXhE", 
+        "T[$:.6", 
+        "00006666", 
+        "CCCCDDDD", 
+        "TTTT{{{{", 
+        "####====", 
+        "ffff((((", 
+        "vvvv[[[[", 
+        "IIIImmmm", 
+        "%%%%rrrr", 
+        "]]]]eeee", 
+        "llllppppHHHHPPPP", 
+        "FFFFWWWW", 
+        "kkkk::::", 
+        "AAAAOOOOgggg", 
+        "tttt\"\"\"\"", 
+        "nnnnGGGG", 
+        "VVVV>>>>KKKK", 
+        "yyyy    ", 
+        "YYYY''''", 
+        "____````QQQQ", 
+        ";;;;MMMM", 
+        "ccccUUUU!!!!", 
+        "CloseHandle", 
+        "SetErrorMode", 
+        "CreateThread", 
+        "KERNEL32.dll", 
+        "7}L&&6~+", 
+        "cM~yk[H", 
+        "gy@Igb", 
+        "7j=*\u001fQ", 
+        "Xg6bvxgH", 
+        "T1&}T^", 
+        "\\J'CX$", 
+        "k?n@#W", 
+        "sOa6cg,", 
+        "/XQQC)_[7", 
+        "t23y\u001fB", 
+        "*t[S|:U", 
+        "6ae,U$", 
+        "gCio=KI`", 
+        "wg^i]eSx", 
+        "Wd_K['", 
+        "]{+=fUIA", 
+        "NyEahH", 
+        "U~9C$R", 
+        "P%V6k2", 
+        "?\u001fS:2%\u001fi3", 
+        ",xhQTP", 
+        "~-O2xGW", 
+        "LYui#b", 
+        "/p!4H3", 
+        ".>T~D-%7<", 
+        "c\"0Jgn", 
+        "~|,:uw;", 
+        "iq\u001fFLw", 
+        "xbK?Gy", 
+        "$HXPkg", 
+        "4>/}!g3", 
+        "+)-~(o", 
+        "QEC('X", 
+        "XasH*+", 
+        "LuXI0i", 
+        "kX $38", 
+        "%U(ICB", 
+        "d;MLaB", 
+        "e0Oi=-O", 
+        "ZV;[fW=", 
+        "_x&\\v9", 
+        "Y\u001fz lP", 
+        "g!G2,M", 
+        "z{sk~\u001fi", 
+        ";\"Q/]6^", 
+        "#:rTCa~`:", 
+        "wqJzp(", 
+        ":F<trw", 
+        "#N\u001f>\u001fe", 
+        "3B.T$O'E", 
+        "j=pM,m", 
+        "t+w9jM", 
+        "'GnS6e", 
+        "\\}!)m)", 
+        ")g\\sk#", 
+        "?9eZgh", 
+        "TqZ4x/", 
+        "__:R';{", 
+        "UKt7f4", 
+        "f=,<neV", 
+        "2k-KCN\u001f", 
+        "M8jCZ<", 
+        "!vm<5d", 
+        ",eeMhx", 
+        "VRCXM,v}|", 
+        "L-~T@f", 
+        "|7$>b*", 
+        "9+Dtn*+", 
+        "Uar#<f", 
+        "7KX7j2", 
+        "444VHC", 
+        "2v`&g/", 
+        "?>e#N2", 
+        "@Kvj$,", 
+        "Fi5se1", 
+        "fHZu1jqo\"{b&", 
+        "\"_@XDe\"", 
+        "eZBW7!", 
+        "0`&*,&9", 
+        "<I\"X2bH", 
+        "Ldt.\u001f*", 
+        ")=P6Uk", 
+        "$eB&s8K", 
+        "xMlm]n", 
+        "  8yo=", 
+        "Pe=3c-", 
+        "yY4}'\\YQ%", 
+        "$7rk2)j", 
+        "x~}XUj", 
+        "F4G_aX", 
+        "Pa\u001f(91", 
+        "8YhBuHzKyULdniZ82Ys6qaDugef1zWbs-", 
+        ".0ZILG", 
+        "Hz\\qk- ", 
+        "rcc\"@X", 
+        "&ef\u001fR;]Y", 
+        ";,q.t\u001f", 
+        "%2g/Y)", 
+        "dG,\\|h", 
+        " >ip1 ", 
+        "o&\"x#[?3", 
+        "/8kp)3cq)", 
+        "8QV3=l", 
+        "o..TUG|\u001f)", 
+        "BS5B%Vk", 
+        "CmE}JS`)", 
+        "q]Ur%t", 
+        "QK8&l'", 
+        "DacJ9!", 
+        "T>V,L\u001f", 
+        "*miWn4", 
+        "326z=[(", 
+        "\\>FN(P", 
+        "<Wo.1U", 
+        "=,WM+;", 
+        "Sw7Aj`", 
+        "eUW++\\", 
+        ":W3{Lr", 
+        "Gaq`bT|", 
+        "q&ocMt", 
+        "`]L:wW", 
+        "\u001fa~N3|S", 
+        "7aV+Tx", 
+        "p+_5U\\\\", 
+        ".(aba=", 
+        "qMM)yy1", 
+        "$l>Y+T", 
+        ";]GB$\u001f", 
+        "x,3&a5", 
+        "XhCA5L", 
+        ";\\-;J$A", 
+        "37U?Fi", 
+        "cmCjB!", 
+        "mtAZ ,=", 
+        "Nc7{<b", 
+        "6q:U3Y", 
+        "ps'Gis", 
+        "1<1L1h1", 
+        "2%2,24292>2C2c2y2", 
+        "3@4H4Q4X4m4y4", 
+        "6%6@6Z6w6", 
+        "7B8L8\\8l8|8", 
+        "819E9O9b9l9v9", 
+        ";\";+;4;=;F;[;`;q;~;", 
+        "<2<N<p<", 
+        "=P>`>j>v>|>", 
+        "2$2/242N2{2`4m4z4", 
+        "5'5M5o5", 
+        ">$?.?6?<?B?H?k?r?", 
+        "212>2F2M2V2s2", 
+        "3=3Z3d3s3}3", 
+        "4!4E4R4", 
+        "5/5I5R5}5", 
+        "5)6L6Z6", 
+        "9 9C9d9", 
+        ";6;?;h;w;", 
+        "?#?.?K?^?g?s?{?", 
+        "1$161;1E1J1P1[1t1[2d2", 
+        "4J4j4u4", 
+        "42575T5", 
+        "9#:7:F:a:", 
+        ":(;<;H;p;", 
+        ";,<O<z<", 
+        "=%=A=F=N=", 
+        ">2>C>c>", 
+        "?9?Z?{?", 
+        "2(2I2t2", 
+        "5\u001f5&5-545a5m5t5{5", 
+        "9::S:j:", 
+        "0>0o0|0", 
+        "111X1a1h1", 
+        "1>2b2|2", 
+        ";);G;N;];v;", 
+        "<!<.<8<Y<c<o<", 
+        "=#=A=K=W=p=", 
+        ">:>P>d>s>", 
+        "0$000W0l0", 
+        "0.1E1Y1e1u1", 
+        "3-3j3{3", 
+        "@0D0H0L0P0T0", 
+        "ServicesActive"
+    ], 
+    "metadata": {
+        "output": {
+            "pcap": {
+                "basename": "dump.pcap", 
+                "sha256": "d1ea72dad6be7560a6b4000d1c9d0538b43a85c4edd55d3eb580a11644d87d49", 
+                "dirname": ""
+            }
+        }
+    }
+}
