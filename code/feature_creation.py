@@ -3,6 +3,20 @@ import json
 import pandas as pd
 import csv
 import os
+import sys
+import codecs
+
+# Disable
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+# Restore
+def enablePrint():
+    sys.stdout = sys.__stdout__
+
+print( "Start of script" )
+
+blockPrint()
 
 # features to be located in cuckoo response
 required_features = [ "behavior.processes.modules.basename",\
@@ -56,7 +70,7 @@ def feature_extraction_sans_loop(json_variable, feature_accessor):
 
 
             print("\n"*5)
-            print("json_variable", json_variable )
+            print("json_variable", str(json_variable) )
             print("\n"*5)
             print("feature Accessor", feature_accessor[indiviual_keyIndex+1:] )
             print("\n"*5)
@@ -168,9 +182,9 @@ master_list_value.clear()
 # traverse over report folder and apply 
 # feature extraction on indivual reports
 for filename in os.listdir(path):
-
+    enablePrint()
     print( "[INFO] {} in process....".format( filename ) )
-
+    blockPrint()
     # Only parse json files
     if filename.endswith('.json'): 
 
@@ -224,8 +238,13 @@ for filename in os.listdir(path):
             print( feature_frame.head() )
 
 # save extracted features in a CSV file 
-with open("./resources/feature_frame.csv", 'w') as f:
-    # df.to_csv(f, header=False)
 
+with codecs.open("./resources/feature_frame.csv", 'wb', encoding='utf-8', errors='ignore') as f:
+# with open("./resources/feature_frame.csv", 'w') as f:
+    
     feature_frame.to_csv( f )
+
+    enablePrint()
+    
+    print( "End of script" )
 
