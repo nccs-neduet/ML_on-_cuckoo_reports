@@ -8,7 +8,7 @@ path  = "./resources/feature_frame.csv"
 # save extracted features in a CSV file 
 cuckoo_report_attributes = pd.read_csv(path)
 
-print( cuckoo_report_attributes )
+print( cuckoo_report_attributes.head() )
 
 
 
