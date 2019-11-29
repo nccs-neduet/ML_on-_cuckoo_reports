@@ -1,6 +1,7 @@
 cuckoo_ML
 resources/Reports/*
-!resources/Reports/report.json
+!resources/Reports/benign_report.json
+!resources/Reports/malicious_report.json
 resources/*
 !resources/Reports
 !resources/requirements.txt
