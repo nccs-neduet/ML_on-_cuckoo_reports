@@ -27,7 +27,7 @@ y = df["class"].values
 y[0:5]
 
 #create a new KNN model
-knn_cv = KNeighborsClassifier(n_neighbors=3)
+knn_cv = KNeighborsClassifier(n_neighbors=1)
 #train model with cv of 5 
 cv_scores = cross_val_score(knn_cv, X, y, cv=5)
 #print each cv score (accuracy) and average them
