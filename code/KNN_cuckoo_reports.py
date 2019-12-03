@@ -42,9 +42,8 @@ knn.predict(X_test)[0:5]
 #check accuracy of our model on the test data
 knn_score = knn.score(X_test, y_test)
 
+# get current timestamp
 timestr = time.strftime("%d%m%Y-%H%M%S")
-
-print( timestr)
 
 # save the model to disk with accuracy and timestamp
 # appended to file path
