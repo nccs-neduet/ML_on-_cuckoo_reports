@@ -37,10 +37,14 @@ knn = KNeighborsClassifier(n_neighbors = 1)
 knn.fit(X_train,y_train)
 
 #show first 5 model predictions on the test data
-knn.predict(X_test)[0:5]
+prediction_result =  knn.predict(X_test)#[0:5]
+
+print( f"Prediction Result: {prediction_result}" )
 
 #check accuracy of our model on the test data
 knn_score = knn.score(X_test, y_test)
+
+print( f"Trained Model Score: {knn_score}" )
 
 # get current timestamp
 timestr = time.strftime("%d%m%Y-%H%M%S")
