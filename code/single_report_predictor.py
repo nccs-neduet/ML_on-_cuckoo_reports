@@ -11,6 +11,19 @@ import dictor
 
 from fuzzywuzzy import fuzz
 
+import argparse
+
+# help flag provides flag help
+# store_true actions stores argument as True
+
+parser = argparse.ArgumentParser()
+   
+parser.add_argument("-r", "--report", type=str,
+                    help="single report to parse")
+
+args = parser.parse_args()
+
+
 # Flatten the json report to simple dictionary
 def flatten_json(y):
 
@@ -19,12 +32,14 @@ def flatten_json(y):
     # internal function to unfold nested json
     def flatten(x, name=''):
 
+        # iterate through keys if it is a dictionary
         if type(x) is dict:
 
             for a in x:
 
                 flatten(x[a], name + a + '*')
 
+        # iterate through indexs if it is a list
         elif type(x) is list:
 
             i = 0
@@ -76,10 +91,13 @@ def number_remover(json_list):
         # to temporary variable, if it is not a digit
         for index_w, word in enumerate(split_feature):
             
+            # test if the word is a digit
             if not word.isdigit():
 
                 temp_row = temp_row + word
 
+                # if this is the last word in the 
+                # list do not add a separator
                 if index_w != len(split_feature) - 1:
                     temp_row = temp_row + "."
 
@@ -106,12 +124,19 @@ with open(trained_feature_filename, "r") as trained_feature_csv:
 
     # print( "Trained Feature CSV Columns: {}".format( trained_feature_frame ) )
 
+# set json report if it is provided 
+# during runtime, otherwise switch to default
+if args.report:
+    cuckoo_report_filename = args.report
+    
+else:
+    cuckoo_report_filename = './resources/Reports/benign_report8.json'
 
-cuckoo_report_filename = './resources/Reports/benign_report8.json'
+print( f"report filename: {cuckoo_report_filename}" )
 
 # Loading the single json report for
 # important feature extraction and prediction
-with open(cuckoo_report_filename, "r", encoding="utf-8" ) as indiviual_report:
+with open(cuckoo_report_filename, "r") as indiviual_report:
 
     indiviual_report_json = json.load(indiviual_report)
 
@@ -136,38 +161,49 @@ list_json = dictionary_to_list(flat_json)
 
 list_json_sans_number = number_remover(list_json)
 
-feature_in_report = pd.DataFrame()
 
-for feature in important_features:
-
-    highest_ratio = 0
+# for feature in important_features:
+for feature in trained_feature_frame.columns:
+    
+    # highest_ratio = 0
 
     for item in list_json_sans_number:
 
+    #     # Ratio = fuzz.ratio(item.lower(),feature['Specs'].lower())
+    #     Ratio = fuzz.partial_ratio(item, feature['Specs'])
+
+    #     if Ratio > highest_ratio:
+
+    #         highest_ratio = Ratio
+
+    #     if Ratio >= 95:
+
+    #         print("feature: {},Item:{} and Ratio:{}".format(feature["Specs"], item, Ratio ) )
+
+    #         trained_feature_frame.at[1, feature['Specs']] = 1
+
         # Ratio = fuzz.ratio(item.lower(),feature['Specs'].lower())
-        Ratio = fuzz.partial_ratio(item.lower(), feature['Specs'].lower())
+        # Ratio = fuzz.partial_ratio(item.lower(), feature['Specs'].lower())
 
-        if Ratio > highest_ratio:
+        # using basic string comparator
+        if item == feature:
 
-            highest_ratio = Ratio
+            # print("feature: {} and Item:{}".format(feature, item ) )
 
-        if Ratio >= 95:
-
-            # print("feature: {},Item:{} and Ratio:{}".format(feature, item, Ratio ) )
-
-            trained_feature_frame.at["test", feature['Specs']] = 1
+            trained_feature_frame.at[1, feature ]  = 1
 
 trained_feature_frame = trained_feature_frame.fillna(0)
 trained_feature_frame.head()
 
-trained_feature_frame = trained_feature_frame[trained_feature_frame.columns[2:]]
+trained_feature_frame = trained_feature_frame[ trained_feature_frame.columns[ 2: ] ]
 
-prediction_result = trained_model.predict(trained_feature_frame)
+# trained_feature_frame = trained_feature_frame[trained_feature_frame.columns[2:]].iloc[0]
+# print( trained_feature_frame )
+
+prediction_result = trained_model.predict( trained_feature_frame )
 
 print(f"Prediciton result: {prediction_result}")
 
 with open("./resources/test_feature_frame.csv", 'w') as f:
 
     trained_feature_frame.to_csv(f)
-
-
